@@ -77,7 +77,10 @@ int main()
 				break;
 
 			case VK_ESCAPE:
-				goto END;
+				painting->Deinit();
+				delete painting;
+				delete critters;
+				return 0;
 			}
 		}
 
@@ -86,7 +89,7 @@ int main()
 			critters->Forward();
 			QueryPerformanceCounter(&endTime);
 
-			if (critters->GetStepCount() % 1000 == 0)		// 测试模式时，中途的显示过程，可以改为最后显示一次，减少耗时
+			if (critters->GetStepCount() % 1000 == 0 && critters->GetStepCount() == k_test_times)		// 测试模式时，中途的显示过程，可以改为最后显示一次，减少耗时
 			{
 				painting->PaintTestData(critters, (double)(endTime.QuadPart - startTime.QuadPart) / (double)frequency.QuadPart, critters->GetStepCount());//绘制测试脚本世界
 			}
@@ -114,8 +117,10 @@ int main()
 		}
 	}
 
-END:
+
 	painting->Deinit();
+	delete painting;
+	delete critters;
 
 	return 0;
 }

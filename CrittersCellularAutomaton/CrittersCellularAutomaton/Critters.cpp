@@ -162,9 +162,9 @@ void Critters::RandomSeed()
 {
     int seed[k_cells_size][k_cells_size] = { 0 };
 
-    for (int x = 0 + 50; x < k_cells_size - 50; x++)
-        for (int y = 0 + 50; y < k_cells_size - 50; y++)
-            seed[x][y] = rand() % 2;
+    for (int x = 0+128 ; x < k_cells_size-126; x++)
+        for (int y = 0+128 ; y < k_cells_size-126; y++)
+            seed[x][y] = rand()%2;
 
     GenerateBySeed(seed);
     m_color_evolution.SetColorValue(rand() % k_color_max_value, rand() % k_color_max_value, rand() % k_color_max_value);

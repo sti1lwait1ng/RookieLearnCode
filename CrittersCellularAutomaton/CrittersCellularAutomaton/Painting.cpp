@@ -64,8 +64,8 @@ void Painting::PaintTestData(Critters* critters, DOUBLE time, INT test_count)
 
 	setfillstyle(SOLID_FILL, BLACK); // 假设背景色为黑色
 	bar(920, 600, 920 + 200, 600 + 200); // 用背景色填充文本区域
-	_stprintf(buffer_count, _T("已执行次数: %d"), test_count);
-	_stprintf(buffer_time, _T("已执行时间: %.6f秒"), time);
+	swprintf_s(buffer_count, _T("已执行次数: %d"), test_count);
+	swprintf_s(buffer_time, _T("已执行时间: %.6f秒"), time);
 	setcolor(WHITE);
 	setfont(16, 0, L"宋体");
 	outtextxy(920, 600, buffer_count);
