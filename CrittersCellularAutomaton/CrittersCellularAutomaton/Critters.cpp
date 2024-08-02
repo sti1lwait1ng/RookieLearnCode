@@ -72,8 +72,10 @@ void Critters::Evolution()
 	{
 		for (int col = start_idx; col < k_cells_size; col+= 2)
 		{
-			int row_down = (row + 1) % k_cells_size;
-			int col_right = (col + 1) % k_cells_size;
+            int row_down = ((row + 1) ^ k_cells_size) ? row + 1 : 0;
+            int col_right = ((col + 1) ^ k_cells_size) ? col + 1 : 0;
+            int row_up = row ? row-1 : (k_cells_size - 1);
+            int col_left = col  ? col-1 : (k_cells_size - 1);
 			// 计算周围活着的生命数量
 			sum = m_cells[row][col].around();
 
@@ -113,11 +115,67 @@ void Critters::Evolution()
 			default:
 				break;
 			}
+            if (index_change[row][col] != 0)
+            {
+                ///------------------------------------------------ 更新自己
+                m_cells[row][col].self_state = (index_change[row][col] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///------------------------------------------------ 更新正上方的细胞
+                m_cells[row_up][col].down_state = (index_change[row][col] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///-------------------------------------------- 更新左上方的细胞
+                m_cells[row_up][col_left].dr_state = (index_change[row][col] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///------------------------------------------------ 更新正左方的细胞
+                m_cells[row][col_left].right_state = (index_change[row][col] > 0) ? StateCell::Alive : StateCell::Dead;
+            }
+            if (index_change[row][col_right] != 0)
+            {
+                ///------------------------------------------------ 更新自己
+                m_cells[row][col_right].self_state = (index_change[row][col_right] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///------------------------------------------------ 更新正上方的细胞
+                m_cells[row_up][col_right].down_state = (index_change[row][col_right] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///-------------------------------------------- 更新左上方的细胞
+                m_cells[row_up][col].dr_state = (index_change[row][col_right] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///------------------------------------------------ 更新正左方的细胞
+                m_cells[row][col].right_state = (index_change[row][col_right] > 0) ? StateCell::Alive : StateCell::Dead;
+            }
+            if (index_change[row_down][col] != 0)
+            {
+                ///------------------------------------------------ 更新自己
+                m_cells[row_down][col].self_state = (index_change[row_down][col] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///------------------------------------------------ 更新正上方的细胞
+                m_cells[row][col].down_state = (index_change[row_down][col] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///-------------------------------------------- 更新左上方的细胞
+                m_cells[row][col_left].dr_state = (index_change[row_down][col] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///------------------------------------------------ 更新正左方的细胞
+                m_cells[row_down][col_left].right_state = (index_change[row_down][col] > 0) ? StateCell::Alive : StateCell::Dead;
+            }
+            if (index_change[row_down][col_right] != 0)
+            {
+                ///------------------------------------------------ 更新自己
+                m_cells[row_down][col_right].self_state = (index_change[row_down][col_right] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///------------------------------------------------ 更新正上方的细胞
+                m_cells[row][col_right].down_state = (index_change[row_down][col_right] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///-------------------------------------------- 更新左上方的细胞
+                m_cells[row][col].dr_state = (index_change[row_down][col_right] > 0) ? StateCell::Alive : StateCell::Dead;
+
+                ///------------------------------------------------ 更新正左方的细胞
+                m_cells[row_down][col].right_state = (index_change[row_down][col_right] > 0) ? StateCell::Alive : StateCell::Dead;
+            }
 		}
 	}
 	
     ///---------------------------------------------------------------- 更新发生变化的细胞周围的细胞的存储数据
-    for (int row = 0; row < k_cells_size; row++)
+    /*for (int row = 0; row < k_cells_size; row++)
     {
         for (int col = 0; col < k_cells_size; col++)
         {
@@ -139,7 +197,7 @@ void Critters::Evolution()
                 m_cells[row][col_left].right_state = (index_change[row][col] > 0) ? StateCell::Alive : StateCell::Dead;
             }
         }
-    }
+    }*/
 }
 
 /// 创建一个细胞以方形分布的世界

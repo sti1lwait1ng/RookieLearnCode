@@ -1,8 +1,8 @@
-﻿  CrittersCellularAutomaton.cpp
-  Painting.cpp
+﻿  Critters.cpp
   正在生成代码
-  Previous IPDB not found, fall back to full compilation.
-  All 32 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  4 of 32 functions (12.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   CrittersCellularAutomaton.vcxproj -> C:\Users\wangjinzhuo\Desktop\Git_repo\RookieLearnCode\CrittersCellularAutomaton\x64\Release\CrittersCellularAutomaton.exe
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序

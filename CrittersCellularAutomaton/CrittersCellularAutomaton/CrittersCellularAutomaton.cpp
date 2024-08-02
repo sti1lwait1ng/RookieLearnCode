@@ -113,7 +113,7 @@ int main()
 			}
 
 			if (speed != 900)		// 速度为 900 时，为按任意键单步执行
-				Sleep(speed);
+				Sleep(20000/(900-speed));
 		}
 	}
 
